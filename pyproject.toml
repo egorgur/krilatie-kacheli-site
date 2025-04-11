@@ -2,7 +2,7 @@
 package-mode = false
 name = "django-boilerplate"
 version = "0.1.0"
-description = "Django boiler plate for varios projects"
+description = "Django boiler plate for various projects"
 authors = ["egorgurtyakin@gmail.com"]
 license = "MIT"
 readme = "README.md"
@@ -31,10 +31,10 @@ django-health-check = "^3.18.3"
 django-storages = { extras = ["s3"], version = "^1.14.4" }
 # Database abstraction layer
 # https://pypi.org/project/psycopg-binary/
-psycopg = {extras = ["binary"], version = "^3.2.1"}
+psycopg = { extras = ["binary"], version = "^3.2.1" }
 # Redis cache backend for Django
 # https://github.com/jazzband/django-redis
-django-redis  = "^5.4.0"
+django-redis = "^5.4.0"
 
 # -------------------------------------------------
 # DJANGO REST FRAMEWORK
@@ -51,7 +51,7 @@ django-rest-knox = "^5.0.1"
 # -------------------------------------------------
 # Celery
 # https://docs.celeryproject.org/en/stable/
-celery = {extras = ["redis"], version = "^5.4.0"}
+celery = { extras = ["redis"], version = "^5.4.0" }
 # Celery monitoring tool
 # https://flower.readthedocs.io/en/latest/
 flower = "^2.0.1"
@@ -122,14 +122,9 @@ model-bakery = "^1.19.5"
 #   allow use of ipdb during tests
 # --ff
 #   run last failed tests first
-addopts = [
-    "--reuse-db",
-    "--ff",
-    "--capture=no",
-]
+addopts = ["--reuse-db", "--ff", "--capture=no"]
 # skip all files inside following dirs
-norecursedirs = [
-]
+norecursedirs = []
 # set Django settings
 django_find_project = false
 DJANGO_SETTINGS_MODULE = "src.config.settings"
@@ -139,11 +134,6 @@ pythonpath = "." # without this, pytest cannot find the src module
 python_files = "test_*.py"
 testpaths = ["src"]
 #filterwarnings = "ignore::DeprecationWarning:^(?!node\\.).*:" if deprecation warns are annoying
-
-
-
-
-
 
 
 [tool.poetry.group.commit-style.dependencies]

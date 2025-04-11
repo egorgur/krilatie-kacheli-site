@@ -11,6 +11,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "src.apps.catalogue.apps.CatalogueConfig",  # catalogue app
     # Third party
     #   "some_third_party",
     # Apps
