@@ -24,12 +24,14 @@ class GroupThemeSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ItemGroupSerializer(serializers.HyperlinkedModelSerializer):
+    theme = serializers.PrimaryKeyRelatedField(queryset=GroupTheme.objects.all())
     class Meta:
         model = ItemGroup
         fields = ["id", "title", "theme"]
 
 
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
+    group = serializers.PrimaryKeyRelatedField(queryset=ItemGroup.objects.all())
     class Meta:
         model = Item
         fields = ["id", "title", "body", "group"]

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import Group, User
 from django.http import HttpResponse
 
+from django.shortcuts import render
 from rest_framework import generics, permissions, viewsets
 
 from .models import GroupTheme, Item, ItemGroup
@@ -11,7 +12,11 @@ from .serializers import GroupSerializer, GroupThemeSerializer, ItemGroupSeriali
 
 
 def test(request):
-    return HttpResponse("Hello world!")
+    return render(
+            request=request,
+            template_name="catalogue/index.html",
+            context={}
+        )
 
 
 

@@ -11,6 +11,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_vite",
     "rest_framework",
     "src.apps.catalogue.apps.CatalogueConfig",  # catalogue app
     # Third party
@@ -76,7 +77,16 @@ USE_TZ = True
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"  # type: ignore # noqa: F821
 
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"  # type: ignore # noqa: F821
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles' # type: ignore # noqa: F821
+STATICFILES_DIRS = [
+    BASE_DIR / "webapp/dist" # type: ignore # noqa: F821
+]
+
+DJANGO_VITE = {
+    "default": {
+        "dev_mode": DEBUG,
+    }
+}

@@ -1,0 +1,16 @@
+{% load django_vite %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tailwind 🤝🏻 Django</title>
+    {% vite_hmr_client %}
+    <link rel="stylesheet" href="{% vite_asset_url 'src/style.css' %}" />
+</head>
+<body>
+<h1 class="p-8 text-6xl inline-block font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500  to-red-500">
+    Tailwind and Django!
+</h1>
+</body>
+</html>
