@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export const Header = () => {
   return (
     <header
@@ -12,7 +14,7 @@ export const Header = () => {
       flex flex-row
     "
       >
-        <div className="text-2xl">Крылатые качели</div>
+        <Link to={"/"} className="text-2xl">Крылатые качели</Link>
         <div className="grow"></div>
         <nav
           className="
@@ -20,10 +22,10 @@ export const Header = () => {
       gap-10
     "
         >
-          <button className="hover:underline">КАТАЛОГ</button>
-          <button className="hover:underline">КОМПАНИЯ</button>
-          <button className="hover:underline">КОНТАКТЫ</button>
-          <button className="hover:underline">СЕРТИФИКАТЫ</button>
+          <Link to="/catalogue" className="hover:underline">КАТАЛОГ</Link>
+          <Link to="/company" className="hover:underline">КОМПАНИЯ</Link>
+          <Link to="/contacts" className="hover:underline">КОНТАКТЫ</Link>
+          <Link to="/certificates" className="hover:underline">СЕРТИФИКАТЫ</Link>
         </nav>
       </main>
     </header>

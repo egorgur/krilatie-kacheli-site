@@ -1,10 +1,10 @@
 import { Phone, Mail } from "lucide-react";
-
+import { Link } from 'react-router-dom';
 export const Footer = () => {
   return (
     <footer className="h-[100px] bg-slate-800 flex flex-row items-center justify-center text-gray-400">
       <main className="flex flex-row w-full max-w-[1440px] items-baseline ">
-        <div className="text-2xl text-gray-50">Крылатые качели</div>
+        <Link to="/" className="text-2xl text-gray-50">Крылатые качели</Link>
 
         <div className="w-[150px] shrink"></div>
 
