@@ -3,6 +3,10 @@ SECRET_KEY = NotImplemented
 
 ALLOWED_HOSTS: list[str] = ["localhost", "127.0.0.1"]
 CSRF_TRUSTED_ORIGIN: list[str] = []
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
+CORS_ALLOW_CREDENTIALS = True
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -11,7 +15,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_vite",
+    "corsheaders",
     "rest_framework",
     "src.apps.catalogue.apps.CatalogueConfig",  # catalogue app
     # Third party
@@ -23,6 +27,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -79,14 +84,5 @@ MEDIA_ROOT = BASE_DIR / "media"  # type: ignore # noqa: F821
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles' # type: ignore # noqa: F821
-STATICFILES_DIRS = [
-    BASE_DIR / "webapp/dist" # type: ignore # noqa: F821
-]
-
-DJANGO_VITE = {
-    "default": {
-        "dev_mode": DEBUG,
-    }
-}
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"  # type: ignore # noqa: F821

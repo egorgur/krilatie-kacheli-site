@@ -1,7 +1,30 @@
-import { Card } from "@/widgets/card";
+import { Card } from "../../../widgets/card";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { CatalogueService } from "../../../shared/lib/api";
+import { GroupTheme } from "../../../shared/lib/types";
 
 export const CatalogueSection = () => {
+  const [themes, setThemes] = useState<GroupTheme[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchThemes = async () => {
+      try {
+        const response = await CatalogueService.getThemes();
+        setThemes(response);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Unknown error");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchThemes();
+  }, []);
+
+  console.debug(themes);
+
   return (
     <main
       className="
@@ -12,23 +35,11 @@ export const CatalogueSection = () => {
 "
     >
       <div className="flex flex-row justify-start gap-10">
-        <Link to={"/catalogue/game"}>
-          <Card name="Игра" />
-        </Link>
-        <Link to={"/catalogue/sport"}>
-          <Card name="Спорт" />
-        </Link>
-        <Link to={"/catalogue/wellbeing"}>
-          <Card name="Благоустройство" />
-        </Link>
-      </div>
-      <div className="flex flex-row justify-start gap-10">
-        <Link to={"/catalogue/cover"}>
-          <Card name="Покрытия" />
-        </Link>
-        <Link to={"/catalogue/maf"}>
-          <Card name="МАФ" />
-        </Link>
+        {themes.map((theme) => (
+          <Link key={theme.id} to={`/catalogue/${theme.id}`}>
+            <Card name={theme.title} image={theme.image} />
+          </Link>
+        ))}
       </div>
     </main>
   );

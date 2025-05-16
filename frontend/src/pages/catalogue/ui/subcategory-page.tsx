@@ -1,47 +1,34 @@
 import { Card } from "@/widgets/card";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
-const categoryData = {
-  game: {
-    name: "Игра",
-    subcategories: [
-      { id: "slides", name: "Горки" },
-      { id: "sandboxes", name: "Песочницы" },
-    ],
-  },
-  maf: {
-    name: "МАФ",
-    subcategories: [
-      { id: "slides", name: "МАФ1" },
-      { id: "sandboxes", name: "МАФ11" },
-    ],
-  },
-  wellbeing: {
-    name: "Благоустройство",
-    subcategories: [
-      { id: "slides", name: "Горки" },
-      { id: "sandboxes", name: "Песочницы" },
-    ],
-  },
-  sport: {
-    name: "Спорт",
-    subcategories: [
-      { id: "slides", name: "Горки" },
-      { id: "sandboxes", name: "Песочницы" },
-    ],
-  },
-  cover: {
-    name: "Покрытия",
-    subcategories: [
-      { id: "slides", name: "Горки" },
-      { id: "sandboxes", name: "Песочницы" },
-    ],
-  },
-};
+import { CatalogueService } from "../../../shared/lib/api";
+import { GroupThemeDetailed } from "../../../shared/lib/types";
 
 export const SubcategoryPage = () => {
-  const { categoryId } = useParams();
-  const category = categoryData[categoryId];
+  const { themeId } = useParams();
+  const [theme, setTheme] = useState<GroupThemeDetailed>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchGroups = async () => {
+      try {
+        if (themeId) {
+          const response = await CatalogueService.getThemeById(
+            parseInt(themeId)
+          );
+          setTheme(response);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Unknown error");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGroups();
+  }, []);
+
+  console.debug(theme);
 
   return (
     <>
@@ -53,12 +40,12 @@ export const SubcategoryPage = () => {
                      gap-10"
         >
           <div className="flex flex-row justify-start gap-10">
-            {category.subcategories.map((subcategory) => (
+            {theme?.groups.map((subcategory) => (
               <Link
                 key={subcategory.id}
-                to={`/catalogue/${categoryId}/${subcategory.id}`}
+                to={`/catalogue/${themeId}/${subcategory.id}`}
               >
-                <Card name={subcategory.name} />
+                <Card name={subcategory.title} image={subcategory.image} />
               </Link>
             ))}
           </div>

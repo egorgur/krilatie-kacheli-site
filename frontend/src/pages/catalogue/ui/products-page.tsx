@@ -1,19 +1,34 @@
 import { Card } from "@/widgets/card";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
-const subCategoryData = {
-  game: {
-    slides: [
-      { id: "slide-1", name: 'Горка "Радуга"' },
-      { id: "slide-2", name: 'Горка "Волна"' },
-    ],
-    sandboxes: [{ id: "sandbox-1", name: 'Песочница "Классик"' }],
-  },
-};
+import { CatalogueService } from "../../../shared/lib/api";
+import { Item, ItemGroupDetailed } from "../../../shared/lib/types";
 
 export const ProductsPage = () => {
-  const { categoryId, subcategoryId } = useParams();
-  const products = subCategoryData[categoryId][subcategoryId];
+  const { themeId, groupId } = useParams();
+  const [group, setGroup] = useState<ItemGroupDetailed>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchGroups = async () => {
+      try {
+        if (groupId) {
+          const response = await CatalogueService.getGroupById(
+            parseInt(groupId)
+          );
+          setGroup(response);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Unknown error");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGroups();
+  }, []);
+
+  console.debug(group);
 
   return (
     <>
@@ -25,12 +40,12 @@ export const ProductsPage = () => {
                      gap-10"
         >
           <div className="flex flex-row justify-start gap-10">
-            {products.map((product) => (
+            {group?.items.map((item: Item) => (
               <Link
-                key={product.id}
-                to={`/catalogue/${categoryId}/${subcategoryId}/${product.id}`}
+                key={item.id}
+                to={`/catalogue/${themeId}/${groupId}/${item.id}`}
               >
-                <Card name={product.name} />
+                <Card name={item.title} />
               </Link>
             ))}
           </div>
