@@ -2,7 +2,8 @@ import { Card } from "@/widgets/card";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CatalogueService } from "../../../shared/lib/api";
-import { GroupThemeDetailed } from "../../../shared/lib/types";
+import { GroupThemeDetailed, ItemGroupDetailed } from "../../../shared/lib/types";
+import { BreadBoard, Navigation } from "../../../widgets/breadboard";
 
 export const SubcategoryPage = () => {
   const { themeId } = useParams();
@@ -30,9 +31,26 @@ export const SubcategoryPage = () => {
 
   console.debug(theme);
 
+  let navs: Navigation = [];
+  
+    if (theme) {
+      navs = [
+        {
+          name: "Тематики",
+          link: `/catalogue/`,
+        },
+  
+        {
+          name: theme.title,
+          link: `/catalogue/${theme.id}`,
+        },
+      ];
+    }
+
   return (
     <>
-      <main className="grow flex flex-col items-center">
+      <BreadBoard navs={navs} />
+      <main className="grow flex flex-row justify-center pt-[40px]">
         <section
           className="pt-[60px]
                      w-full max-w-[1440px]

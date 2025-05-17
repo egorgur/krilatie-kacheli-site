@@ -71,7 +71,7 @@ export const CatalogueService = {
 
   getItem: async (id: number): Promise<Item> => {
     const response = await CatalogueAPI.get(`/items/${id}/`);
-    return response.data.results;
+    return response.data;
   },
 
   createItem: async (

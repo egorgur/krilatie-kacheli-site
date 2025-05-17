@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CatalogueService } from "../../../shared/lib/api";
 import { GroupTheme } from "../../../shared/lib/types";
+import { BreadBoard, Navigation } from "../../../widgets/breadboard";
 
 export const CategoryPage = () => {
   const [themes, setThemes] = useState<GroupTheme[]>([]);
@@ -25,9 +26,17 @@ export const CategoryPage = () => {
 
   console.debug(themes);
 
+  const navs: Navigation = [
+    {
+      name: "Тематики",
+      link: `/catalogue/`,
+    },
+  ];
+
   return (
     <>
-      <main className="grow flex flex-col items-center">
+      <BreadBoard navs={navs} />
+      <main className="grow flex flex-row justify-center pt-[40px]">
         <section
           className="pt-[60px]
                      w-full max-w-[1440px]
